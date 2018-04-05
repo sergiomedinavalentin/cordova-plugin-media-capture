@@ -299,13 +299,19 @@ public class Capture extends CordovaPlugin {
 
             if (!videosDir.exists()) {
                 videosDir.mkdirs();
+                   
+                File nomediaFile = new File(videosDir, ".nomedia");
 
-                try {
-                    File nomediaFile = new File(videosDir, ".nomedia");
+                if(!nomediaFile.exists()){
                     nomediaFile.createNewFile();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+
+                //try {
+                    //File nomediaFile = new File(videosDir, ".nomedia");
+                    //nomediaFile.createNewFile();
+                //} catch (Exception e) {
+                    //e.printStackTrace();
+                //}
             }
 
             String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
