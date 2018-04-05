@@ -301,7 +301,7 @@ public class Capture extends CordovaPlugin {
                 videosDir.mkdirs();
 
                 File nomediaFile = new File(videosDir, ".nomedia");
-                nomediaFile.createNewFile();
+                //nomediaFile.createNewFile();
             }
 
             String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
