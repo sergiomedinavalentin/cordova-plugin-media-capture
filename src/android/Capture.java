@@ -454,8 +454,16 @@ public class Capture extends CordovaPlugin {
         }
 
         if( data == null){
+            final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
+            root.mkdirs();
+            LOG.d(LOG_TAG, "ROOT FILE: " + root);
+            final String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
+            LOG.d(LOG_TAG, "FILE NAME: " + fname);
+            final File sdImageMainDirectory = new File(root, fname);
+            LOG.d(LOG_TAG, "SDIMAGEMAIN: " + sdImageMainDirectory);
+               
             File movie = new File(getTempDirectoryPath(), "Capture.avi");
-            data = Uri.fromFile(movie);
+            data = Uri.fromFile(sdImageMainDirectory);
                LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF DATA: " + data);
             LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF MOVIE: " + movie);
         }
