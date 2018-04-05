@@ -313,7 +313,11 @@ public class Capture extends CordovaPlugin {
 
             Uri videoUri = Uri.fromFile(mediaFile);
                
+            Uri _videoUri = getContentResolver().insert(android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI, new ContentValues());
+               
             LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
+            LOG.d(LOG_TAG, "VIDEOURI 2: " + _videoUri);
+               
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
