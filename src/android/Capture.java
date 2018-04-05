@@ -302,7 +302,7 @@ public class Capture extends CordovaPlugin {
                
             LOG.d(LOG_TAG, "EXTERNAL STORAGE: " + Environment.getExternalStorageDirectory());
             LOG.d(LOG_TAG, "EXTERNAL STORAGE ABSOLUTE: " + Environment.getExternalStorageDirectory().getAbsolutePath());
-            LOG.d(LOG_TAG, "EXTERNAL FILES: " + getExternalFilesDir(null));
+            LOG.d(LOG_TAG, "EXTERNAL FILES: " + Environment.getDataDirectory());
 
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
 
