@@ -352,7 +352,6 @@ public class Capture extends CordovaPlugin {
                             onImageActivityResult(req);
                             break;
                         case CAPTURE_VIDEO:
-                            LOG.d(LOG_TAG, "INTENT ANTES DE RESULT " + intent);
                             onVideoActivityResult(req, intent);
                             break;
                     }
@@ -419,39 +418,21 @@ public class Capture extends CordovaPlugin {
     public void onVideoActivityResult(Request req, Intent intent) {
         Uri data = null;
            
-        LOG.d(LOG_TAG, "DATA: " + data);
-        LOG.d(LOG_TAG, "REQ: " + req);
-        LOG.d(LOG_TAG, "INTENT: " + intent);
-
         if (intent != null){
             // Get the uri of the video clip
             data = intent.getData();
-               LOG.d(LOG_TAG, "ENTRA EN EL PRIMER IF: " + data);
         }
 
         if( data == null){
-            //final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
-            //root.mkdirs();
-            //LOG.d(LOG_TAG, "ROOT FILE: " + root);
-            //final String fname = "video_capture.mp4";
-            //LOG.d(LOG_TAG, "FILE NAME: " + fname);
-            //final File sdImageMainDirectory = new File(root, fname);
-            //LOG.d(LOG_TAG, "SDIMAGEMAIN: " + sdImageMainDirectory);
-               
-            //File movie = new File(getTempDirectoryPath(), "Capture.avi");
             data = Uri.fromFile(videoDir);
-               //LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF DATA: " + data);
-            //LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF MOVIE: " + movie);
         }
 
         // create a file object from the uri
         if(data == null) {
-               LOG.d(LOG_TAG, "ENTRA EN EL TERCER IF: ");
             pendingRequests.resolveWithFailure(req, createErrorObject(CAPTURE_NO_MEDIA_FILES, "Error: data is null"));
         }
         else {
             req.results.put(createMediaFile(data));
-               LOG.d(LOG_TAG, "ENTRA EN EL CUARTO IF: ");
 
             if (req.results.length() >= req.limit) {
                 // Send Uri back to JavaScript for viewing video
