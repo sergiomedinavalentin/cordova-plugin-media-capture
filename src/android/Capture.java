@@ -324,7 +324,7 @@ public class Capture extends CordovaPlugin {
             ContentResolver contentResolver = this.cordova.getActivity().getContentResolver();
             ContentValues cv = new ContentValues();
             cv.put(MediaStore.Video.Media.MIME_TYPE, VIDEO_MP4);
-            Uri videoUri = contentResolver.insert(MediaStore.Images.Video.EXTERNAL_CONTENT_URI, cv);
+            Uri videoUri = contentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, cv);
             LOG.d(LOG_TAG, "Taking a video and saving to: " + videoUri.toString());
 
             intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
