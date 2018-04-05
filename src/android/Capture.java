@@ -26,6 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -294,7 +295,12 @@ public class Capture extends CordovaPlugin {
         if(cameraPermissionInManifest && !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA)) {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
-            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/myvideo.mp4");
+            Calendar c = Calendar.getInstance();
+            int mSeconds = c.get(Calendar.MILLISECOND);
+
+            LOG.i('mSeconds', mSeconds);   
+            
+            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/myvideo_" + mSeconds + ".mp4");
 
             LOG.d(LOG_TAG, "FILE VIDEO: " + mediaFile);
 
