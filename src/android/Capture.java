@@ -298,7 +298,7 @@ public class Capture extends CordovaPlugin {
             Calendar c = Calendar.getInstance();
             int mSeconds = c.get(Calendar.MILLISECOND);
 
-            LOG.i('mSeconds', mSeconds);   
+            LOG.i(LOG_TAG, "mSeconds: " + mSeconds);   
             
             File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/myvideo_" + mSeconds + ".mp4");
 
