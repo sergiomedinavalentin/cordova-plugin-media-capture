@@ -310,12 +310,17 @@ public class Capture extends CordovaPlugin {
                
             final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
             root.mkdirs();
+            LOG.d(LOG_TAG, "ROOT FILE: " + root);
             final String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
+            LOG.d(LOG_TAG, "FILE NAME: " + fname);
             final File sdImageMainDirectory = new File(root, fname);
+            LOG.d(LOG_TAG, "SDIMAGEMAIN: " + sdImageMainDirectory);
                
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
                
             Uri videoUri = Uri.fromFile(sdImageMainDirectory);
+               
+            LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
