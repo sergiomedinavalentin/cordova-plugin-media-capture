@@ -294,19 +294,13 @@ public class Capture extends CordovaPlugin {
         if(cameraPermissionInManifest && !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA)) {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
-            long time = System.currentTimeMillis();
-
-            LOG.i(LOG_TAG, "time: " + time);   
+            long mSeconds = System.currentTimeMillis();
             
-            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/myvideo_" + time + ".mp4");
-
-            LOG.d(LOG_TAG, "FILE VIDEO: " + mediaFile);
+            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/video_capture" + mSeconds + ".mp4");
 
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
 
             Uri videoUri = Uri.fromFile(mediaFile);
-
-            LOG.d(LOG_TAG, "VIDEO URI " + videoUri);
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
