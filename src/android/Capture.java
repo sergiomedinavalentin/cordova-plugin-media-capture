@@ -295,23 +295,17 @@ public class Capture extends CordovaPlugin {
         if(cameraPermissionInManifest && !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA)) {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
-            File videosDir = new File(Environment.getExternalStorageDirectory() + File.separator + "Tiketi" + File.separator);
+            File videosDir = new File(Environment.getExternalStorageDirectory() + File.separator + ".tiketi" + File.separator);
 
             if (!videosDir.exists()) {
                 videosDir.mkdirs();
-                   
-                File nomediaFile = new File(videosDir, ".nomedia");
 
-                if(!nomediaFile.exists()){
+                try {
+                    File nomediaFile = new File(videosDir, ".nomedia");
                     nomediaFile.createNewFile();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-                //try {
-                    //File nomediaFile = new File(videosDir, ".nomedia");
-                    //nomediaFile.createNewFile();
-                //} catch (Exception e) {
-                    //e.printStackTrace();
-                //}
             }
 
             String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
