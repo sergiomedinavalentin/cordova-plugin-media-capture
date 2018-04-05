@@ -346,7 +346,7 @@ public class Capture extends CordovaPlugin {
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
                 intent.putExtra("android.intent.extra.videoQuality", req.quality);
             }
-               LOG.d(LOG_TAG, "INTENT ANTES DE SALIR: " + intent.getData());
+               LOG.d(LOG_TAG, "INTENT ANTES DE SALIR: " + intent);
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
     }
@@ -376,6 +376,7 @@ public class Capture extends CordovaPlugin {
                             onImageActivityResult(req);
                             break;
                         case CAPTURE_VIDEO:
+                            LOG.d(LOG_TAG, "INTENT ANTES DE RESULT " + intent);
                             onVideoActivityResult(req, intent);
                             break;
                     }
