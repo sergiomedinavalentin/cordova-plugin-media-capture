@@ -296,13 +296,13 @@ public class Capture extends CordovaPlugin {
         } else {
             long mSeconds = System.currentTimeMillis();
             
-            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/video_capture" + mSeconds + ".mp4");
+            //File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/video_capture" + mSeconds + ".mp4");
 
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
 
-            Uri videoUri = Uri.fromFile(mediaFile);
+            //Uri videoUri = Uri.fromFile(mediaFile);
 
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+            //intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
             if(Build.VERSION.SDK_INT > 7){
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
