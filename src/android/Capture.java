@@ -82,6 +82,7 @@ public class Capture extends CordovaPlugin {
 
     private int numPics;                            // Number of pictures before capture activity
     private Uri imageUri;
+    private File videoDir;
 
 //    public void setContext(Context mCtx)
 //    {
@@ -294,59 +295,24 @@ public class Capture extends CordovaPlugin {
         if(cameraPermissionInManifest && !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA)) {
             PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
         } else {
-            long mSeconds = System.currentTimeMillis();
-            
-            //File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/video_capture_" + mSeconds + ".mp4");
-               
-            //File mediaFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/video_capture_" + mSeconds + ".mp4");
-               
-            //LOG.d(LOG_TAG, "MEDIAFILE: " + mediaFile);
-               
-            //LOG.d(LOG_TAG, "EXTERNAL STORAGE: " + Environment.getExternalStorageDirectory());
-            //LOG.d(LOG_TAG, "EXTERNAL STORAGE ABSOLUTE: " + Environment.getExternalStorageDirectory().getAbsolutePath());
-            //LOG.d(LOG_TAG, "EXTERNAL FILES: " + Environment.getDataDirectory());
-            //LOG.d(LOG_TAG, "DCIM: " + Environment.DIRECTORY_DCIM);
-            //LOG.d(LOG_TAG, "EXTERNAL CON DCIM: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
-               
-            final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
+            File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
             root.mkdirs();
-            LOG.d(LOG_TAG, "ROOT FILE: " + root);
-            final String fname = "video_capture.mp4";
-            LOG.d(LOG_TAG, "FILE NAME: " + fname);
-            final File sdImageMainDirectory = new File(root, fname);
-            LOG.d(LOG_TAG, "SDIMAGEMAIN: " + sdImageMainDirectory);
-               
+
+            String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
+
+            videoDir = new File(root, fname);
+
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
-               
-            Uri videoUri = Uri.fromFile(sdImageMainDirectory);
-               
-            LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
+
+            Uri videoUri = Uri.fromFile(videoDir);
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
-
-            //Uri videoUri = Uri.fromFile(mediaFile);
-               
-            //Uri _videoUri = getContentResolver().insert(android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI, new ContentValues());
-               
-            //LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
-            //LOG.d(LOG_TAG, "VIDEOURI 2: " + _videoUri);
-               
-            //intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
-               
-               
-            //ContentResolver contentResolver = this.cordova.getActivity().getContentResolver();
-            //ContentValues cv = new ContentValues();
-            //cv.put(MediaStore.Video.Media.MIME_TYPE, VIDEO_MP4);
-            //Uri videoUri = contentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, cv);
-            //LOG.d(LOG_TAG, "Taking a video and saving to: " + videoUri.toString());
-
-            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
 
             if(Build.VERSION.SDK_INT > 7){
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
                 intent.putExtra("android.intent.extra.videoQuality", req.quality);
             }
-               LOG.d(LOG_TAG, "INTENT ANTES DE SALIR: " + intent);
+
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
     }
@@ -454,18 +420,18 @@ public class Capture extends CordovaPlugin {
         }
 
         if( data == null){
-            final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
-            root.mkdirs();
-            LOG.d(LOG_TAG, "ROOT FILE: " + root);
-            final String fname = "video_capture.mp4";
-            LOG.d(LOG_TAG, "FILE NAME: " + fname);
-            final File sdImageMainDirectory = new File(root, fname);
-            LOG.d(LOG_TAG, "SDIMAGEMAIN: " + sdImageMainDirectory);
+            //final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
+            //root.mkdirs();
+            //LOG.d(LOG_TAG, "ROOT FILE: " + root);
+            //final String fname = "video_capture.mp4";
+            //LOG.d(LOG_TAG, "FILE NAME: " + fname);
+            //final File sdImageMainDirectory = new File(root, fname);
+            //LOG.d(LOG_TAG, "SDIMAGEMAIN: " + sdImageMainDirectory);
                
-            File movie = new File(getTempDirectoryPath(), "Capture.avi");
-            data = Uri.fromFile(sdImageMainDirectory);
-               LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF DATA: " + data);
-            LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF MOVIE: " + movie);
+            //File movie = new File(getTempDirectoryPath(), "Capture.avi");
+            data = Uri.fromFile(videoDir);
+               //LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF DATA: " + data);
+            //LOG.d(LOG_TAG, "ENTRA EN EL SEGUNDO IF MOVIE: " + movie);
         }
 
         // create a file object from the uri
