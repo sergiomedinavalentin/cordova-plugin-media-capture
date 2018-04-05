@@ -300,7 +300,7 @@ public class Capture extends CordovaPlugin {
             if (!videosDir.exists()) {
                 videosDir.mkdirs();
 
-                File nomediaFile = new File(storageDirectory, NOMEDIA);
+                File nomediaFile = new File(videosDir, ".nomedia");
                 nomediaFile.createNewFile();
             }
 
