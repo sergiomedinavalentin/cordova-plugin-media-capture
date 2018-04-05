@@ -311,15 +311,23 @@ public class Capture extends CordovaPlugin {
 
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
 
-            Uri videoUri = Uri.fromFile(mediaFile);
+            //Uri videoUri = Uri.fromFile(mediaFile);
                
-            Uri _videoUri = getContentResolver().insert(android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI, new ContentValues());
+            //Uri _videoUri = getContentResolver().insert(android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI, new ContentValues());
                
-            LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
-            LOG.d(LOG_TAG, "VIDEOURI 2: " + _videoUri);
+            //LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
+            //LOG.d(LOG_TAG, "VIDEOURI 2: " + _videoUri);
                
+            //intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+               
+               
+            ContentResolver contentResolver = this.cordova.getActivity().getContentResolver();
+            ContentValues cv = new ContentValues();
+            cv.put(MediaStore.Video.Media.MIME_TYPE, VIDEO_MP4);
+            Uri videoUri = contentResolver.insert(MediaStore.Images.Video.EXTERNAL_CONTENT_URI, cv);
+            LOG.d(LOG_TAG, "Taking a video and saving to: " + videoUri.toString());
 
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
 
             if(Build.VERSION.SDK_INT > 7){
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
