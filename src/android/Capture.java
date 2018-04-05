@@ -298,18 +298,26 @@ public class Capture extends CordovaPlugin {
             
             //File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/video_capture_" + mSeconds + ".mp4");
                
-            File mediaFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/video_capture_" + mSeconds + ".mp4");
+            //File mediaFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/video_capture_" + mSeconds + ".mp4");
                
-            LOG.d(LOG_TAG, "MEDIAFILE: " + mediaFile);
+            //LOG.d(LOG_TAG, "MEDIAFILE: " + mediaFile);
                
-            LOG.d(LOG_TAG, "EXTERNAL STORAGE: " + Environment.getExternalStorageDirectory());
-            LOG.d(LOG_TAG, "EXTERNAL STORAGE ABSOLUTE: " + Environment.getExternalStorageDirectory().getAbsolutePath());
-            LOG.d(LOG_TAG, "EXTERNAL FILES: " + Environment.getDataDirectory());
-            LOG.d(LOG_TAG, "DCIM: " + Environment.DIRECTORY_DCIM);
-            LOG.d(LOG_TAG, "EXTERNAL CON DCIM: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
+            //LOG.d(LOG_TAG, "EXTERNAL STORAGE: " + Environment.getExternalStorageDirectory());
+            //LOG.d(LOG_TAG, "EXTERNAL STORAGE ABSOLUTE: " + Environment.getExternalStorageDirectory().getAbsolutePath());
+            //LOG.d(LOG_TAG, "EXTERNAL FILES: " + Environment.getDataDirectory());
+            //LOG.d(LOG_TAG, "DCIM: " + Environment.DIRECTORY_DCIM);
+            //LOG.d(LOG_TAG, "EXTERNAL CON DCIM: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
                
-
+            final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
+            root.mkdirs();
+            final String fname = "video_capture_"+ System.currentTimeMillis() + ".mp4";
+            final File sdImageMainDirectory = new File(root, fname);
+               
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
+               
+            Uri videoUri = Uri.fromFile(sdImageMainDirectory);
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
             //Uri videoUri = Uri.fromFile(mediaFile);
                
@@ -321,13 +329,13 @@ public class Capture extends CordovaPlugin {
             //intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
                
                
-            ContentResolver contentResolver = this.cordova.getActivity().getContentResolver();
-            ContentValues cv = new ContentValues();
-            cv.put(MediaStore.Video.Media.MIME_TYPE, VIDEO_MP4);
-            Uri videoUri = contentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, cv);
-            LOG.d(LOG_TAG, "Taking a video and saving to: " + videoUri.toString());
+            //ContentResolver contentResolver = this.cordova.getActivity().getContentResolver();
+            //ContentValues cv = new ContentValues();
+            //cv.put(MediaStore.Video.Media.MIME_TYPE, VIDEO_MP4);
+            //Uri videoUri = contentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, cv);
+            //LOG.d(LOG_TAG, "Taking a video and saving to: " + videoUri.toString());
 
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
+            //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, videoUri);
 
             if(Build.VERSION.SDK_INT > 7){
                 intent.putExtra("android.intent.extra.durationLimit", req.duration);
