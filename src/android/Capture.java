@@ -296,11 +296,19 @@ public class Capture extends CordovaPlugin {
         } else {
             long mSeconds = System.currentTimeMillis();
             
-            //File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/video_capture" + mSeconds + ".mp4");
+            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/video_capture" + mSeconds + ".mp4");
+               
+            LOG.d(LOG_TAG, "MEDIAFILE: " + mediaFile);
+               
+            LOG.d(LOG_TAG, "EXTERNAL STORAGE: " + Environment.getExternalStorageDirectory());
+            LOG.d(LOG_TAG, "EXTERNAL STORAGE ABSOLUTE: " + Environment.getExternalStorageDirectory().getAbsolutePath());
+            LOG.d(LOG_TAG, "EXTERNAL FILES: " + Environment.getExternalFilesDir(null));
 
             Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
 
-            //Uri videoUri = Uri.fromFile(mediaFile);
+            Uri videoUri = Uri.fromFile(mediaFile);
+               
+            LOG.d(LOG_TAG, "VIDEOURI: " + videoUri);
 
             //intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
